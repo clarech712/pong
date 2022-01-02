@@ -54,6 +54,10 @@ carryOn = True
  
 # Control how fast screen updates
 clock = pygame.time.Clock()
+
+# Initialise player scores
+scoreA = 0
+scoreB = 0
  
 # Main programme loop
 while carryOn:
@@ -81,11 +85,14 @@ while carryOn:
         all_sprites_list.update()
         
         # If Ball bouncing against any of four walls, change velocity
-        if ball.rect.x >= 690:
+        # and update relevant score
+        if ball.rect.x >= 690: # Could be made more modular
+                scoreA += 1
                 ball.velocity[0] = - ball.velocity[0]
         if ball.rect.x <= 0:
+                scoreB += 1
                 ball.velocity[0] = - ball.velocity[0]
-        if ball.rect.y > 490:
+        if ball.rect.y > 490: # Could be made more modular
                 ball.velocity[1] = - ball.velocity[1]
         if ball.rect.y < 0:
                 ball.velocity[1] = - ball.velocity[1] 
@@ -103,7 +110,14 @@ while carryOn:
         pygame.draw.line(screen, WHITE, [349, 0], [349, 500], 5)
         
         # Draw all Sprites
-        all_sprites_list.draw(screen) 
+        all_sprites_list.draw(screen)
+        
+        # Display scores
+        font = pygame.font.Font(None, 74)
+        text = font.render(str(scoreA), 1, WHITE)
+        screen.blit(text, (250,10))
+        text = font.render(str(scoreB), 1, WHITE)
+        screen.blit(text, (420,10))
 
         # Update screen
         pygame.display.flip()
