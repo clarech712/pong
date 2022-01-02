@@ -27,3 +27,18 @@ class Paddle(pygame.sprite.Sprite):
                 
                 # Fetch rectangle object with dimensions of image
                 self.rect = self.image.get_rect()
+                
+        # Vertical motion
+        def moveUp(self, pixels):
+                self.rect.y -= pixels
+		        # Prevent from going off screen
+                if self.rect.y < 0:
+                        self.rect.y = 0
+          
+        def moveDown(self, pixels):
+                self.rect.y += pixels
+                # Prevent from going off screen
+                if self.rect.y > 400:
+                        self.rect.y = 400
+        
+        

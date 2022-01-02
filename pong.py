@@ -58,10 +58,22 @@ while carryOn:
                         if event.key == pygame.K_x: # User presses "X" key
                                 carryOn = False # Exit loop
  
+        # Move Paddle when key pressed 
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_w]: # User A presses "W" key
+                paddleA.moveUp(5) # Move Paddle of User A up
+        if keys[pygame.K_s]: # User A presses "S" key
+                paddleA.moveDown(5) # Move Paddle of User A down
+        if keys[pygame.K_UP]: # User B presses up arrow
+                paddleB.moveUp(5) # Move Paddle of User B up
+        if keys[pygame.K_DOWN]: # User B presses down arrow
+                paddleB.moveDown(5) # Move Paddle of User B down
+        
+        # GAME LOGIC
         # Refresh screen and draw all Sprites
         all_sprites_list.update()
 
-        # --- Drawing code should go here
+        # DRAWING
         # Clear screen to black
         screen.fill(BLACK)
 
