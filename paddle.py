@@ -10,19 +10,19 @@
 import pygame
 BLACK = (0, 0, 0)
 
-# Implement paddle class
+# Implement Paddle class
 class Paddle(pygame.sprite.Sprite):
         def __init__(self, color, width, height):
                 # Call parent class constructor
                 super().__init__()
                 
-                # Set paddle colour, width, and height
+                # Set Paddle colour, width, and height
                 # Set background colour
                 self.image = pygame.Surface([width, height])
                 self.image.fill(BLACK)
                 self.image.set_colorkey(BLACK)
  
-                # Draw rectangular paddle
+                # Draw rectangular Paddle
                 pygame.draw.rect(self.image, color, [0, 0, width, height])
                 
                 # Fetch rectangle object with dimensions of image
@@ -40,5 +40,3 @@ class Paddle(pygame.sprite.Sprite):
                 # Prevent from going off screen
                 if self.rect.y > 400:
                         self.rect.y = 400
-        
-        
