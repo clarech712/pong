@@ -13,8 +13,9 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 # Import pygame library
 import pygame
 
-# Import Paddle class
+# Import Paddle and Ball classes
 from paddle import Paddle
+from ball import Ball
 
 # Initialise game engine
 pygame.init()
@@ -37,10 +38,16 @@ paddleB = Paddle(WHITE, 10, 100)
 paddleB.rect.x = 670
 paddleB.rect.y = 200
 
-# Store Paddles in Sprite list
+# Create and position Ball
+ball = Ball(WHITE,10,10)
+ball.rect.x = 345
+ball.rect.y = 195
+
+# Store all Sprites in Sprite list
 all_sprites_list = pygame.sprite.Group()
 all_sprites_list.add(paddleA)
 all_sprites_list.add(paddleB)
+all_sprites_list.add(ball)
 
 # Carry on until user exits game (e.g. clicks close button)
 carryOn = True
@@ -72,7 +79,22 @@ while carryOn:
         # GAME LOGIC
         # Refresh screen and draw all Sprites
         all_sprites_list.update()
+        
+        # If Ball bouncing against any of four walls, change velocity
+        if ball.rect.x >= 690:
+                ball.velocity[0] = - ball.velocity[0]
+        if ball.rect.x <= 0:
+                ball.velocity[0] = - ball.velocity[0]
+        if ball.rect.y > 490:
+                ball.velocity[1] = - ball.velocity[1]
+        if ball.rect.y < 0:
+                ball.velocity[1] = - ball.velocity[1] 
 
+        # If Ball colliding with Paddle, change velocity
+        if (pygame.sprite.collide_mask(ball, paddleA) or
+                pygame.sprite.collide_mask(ball, paddleB)):
+                ball.bounce()
+        
         # DRAWING
         # Clear screen to black
         screen.fill(BLACK)
@@ -80,7 +102,7 @@ while carryOn:
         # Draw net
         pygame.draw.line(screen, WHITE, [349, 0], [349, 500], 5)
         
-        # Draw Paddles
+        # Draw all Sprites
         all_sprites_list.draw(screen) 
 
         # Update screen
