@@ -67,6 +67,9 @@ while carryOn:
 
         # Draw net
         pygame.draw.line(screen, WHITE, [349, 0], [349, 500], 5)
+        
+        # Draw Paddles
+        all_sprites_list.draw(screen) 
 
         # Update screen
         pygame.display.flip()
